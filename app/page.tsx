@@ -1,69 +1,126 @@
-import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, Clock, MapPin, MessageCircle, Phone } from "lucide-react";
+import MenuCard from "@/components/MenuCard";
+import { CATEGORIES, MENU_ITEMS, getFeaturedItems } from "@/lib/menu";
+import { SITE, whatsappLink } from "@/lib/site";
 
-export default function Home() {
+export default function HomePage() {
+  const featured = getFeaturedItems();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <>
+      <section className="border-b border-line bg-gradient-to-b from-surface to-background">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
+          <p className="text-sm font-medium uppercase tracking-widest text-accent">{SITE.tagline}</p>
+          <h1 className="mt-4 max-w-2xl text-4xl font-bold tracking-tight sm:text-6xl">
+            Bienvenue chez Top Luxe
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-5 max-w-xl text-lg text-muted">
+            {`Plats, pizzas, sandwichs, cocktails et chichas, du petit-déjeuner jusqu'à l'aube. ${MENU_ITEMS.length} propositions à découvrir sur notre carte.`}
           </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="/menu"
+              className="inline-flex items-center gap-2 rounded-lg bg-brand px-5 py-3 font-semibold text-black transition hover:bg-brand-dark"
+            >
+              Voir le menu
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+            <a
+              href={whatsappLink(`Bonjour ${SITE.name}, je souhaite passer une commande.`)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-line px-5 py-3 font-semibold transition hover:border-brand hover:text-accent"
+            >
+              <MessageCircle className="h-4 w-4" aria-hidden />
+              Commander sur WhatsApp
+            </a>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+      </section>
+
+      <section className="border-b border-line">
+        <div className="mx-auto grid max-w-6xl gap-6 px-4 py-8 sm:grid-cols-3">
+          <div className="flex items-center gap-3">
+            <Clock className="h-5 w-5 text-accent" aria-hidden />
+            <div>
+              <p className="text-sm font-semibold">Horaires</p>
+              <p className="text-sm text-muted">{SITE.hours}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <MapPin className="h-5 w-5 text-accent" aria-hidden />
+            <div>
+              <p className="text-sm font-semibold">Adresse</p>
+              <Link href="/contact" className="text-sm text-muted hover:text-accent">
+                Voir le plan d&apos;accès
+              </Link>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <Phone className="h-5 w-5 text-accent" aria-hidden />
+            <div>
+              <p className="text-sm font-semibold">Réservations</p>
+              <a href={SITE.phones[0].href} className="text-sm text-muted hover:text-accent">
+                {SITE.phones[0].label}
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <h2 className="text-2xl font-bold sm:text-3xl">Nos incontournables</h2>
+            <p className="mt-2 text-muted">Une sélection de ce que nos clients commandent le plus.</p>
+          </div>
+          <Link href="/menu" className="hidden items-center gap-1 text-sm font-medium text-accent hover:underline sm:inline-flex">
+            Tout le menu
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
+        </div>
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {featured.map((item) => (
+            <MenuCard key={item.slug} item={item} />
+          ))}
+        </div>
+      </section>
+
+      <section className="border-y border-line bg-surface">
+        <div className="mx-auto max-w-6xl px-4 py-14">
+          <h2 className="text-2xl font-bold sm:text-3xl">Parcourir par catégorie</h2>
+          <div className="mt-6 flex flex-wrap gap-3">
+            {CATEGORIES.map((c) => (
+              <Link
+                key={c.id}
+                href={`/menu?category=${c.id}`}
+                className="rounded-full border border-line px-4 py-2 text-sm transition hover:border-brand hover:text-accent"
+              >
+                {c.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <div className="rounded-2xl border border-line bg-surface p-8 sm:p-12">
+          <h2 className="text-2xl font-bold sm:text-3xl">Un événement à organiser ?</h2>
+          <p className="mt-3 max-w-xl text-muted">
+            Anniversaire, soirée privée ou repas d&apos;équipe : écrivez-nous pour réserver la terrasse et préparer votre événement.
+          </p>
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href={whatsappLink(`Bonjour ${SITE.name}, je souhaite réserver pour un événement.`)}
             target="_blank"
             rel="noopener noreferrer"
+            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-brand px-5 py-3 font-semibold text-black transition hover:bg-brand-dark"
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
+            <MessageCircle className="h-4 w-4" aria-hidden />
+            Réserver sur WhatsApp
           </a>
         </div>
-      </main>
-    </div>
+      </section>
+    </>
   );
 }
