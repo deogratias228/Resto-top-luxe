@@ -26,6 +26,7 @@ export default function Header() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <Link href="/" className="text-lg font-bold tracking-tight">
           Top <span className="text-accent">Luxe</span>
+          {/* <img src="/images/logo/image.png" alt="Top Luxe" className="ml-2 h-12 w-auto" /> */}
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex" aria-label="Navigation principale">

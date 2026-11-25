@@ -8,7 +8,7 @@ export default function MenuCard({ item }: { item: MenuItem }) {
       href={`/menu/${item.slug}`}
       className="group flex flex-col overflow-hidden rounded-xl border border-line bg-surface transition hover:border-brand"
     >
-      <div className="relative aspect-[4/3] overflow-hidden bg-line">
+      <div className="relative aspect-4/3 overflow-hidden bg-line">
         <FoodImage
           src={item.image}
           alt={item.name}
@@ -22,8 +22,8 @@ export default function MenuCard({ item }: { item: MenuItem }) {
         </span>
         <h3 className="font-semibold leading-snug">{item.name}</h3>
         <p className="line-clamp-2 text-sm text-muted">{item.description}</p>
-        <div className="mt-auto flex items-center justify-between gap-2 pt-2">
-          <span className="font-semibold">{getShortPriceLabel(item)}</span>
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-2">
+          <div className="font-semibold text-right">{getShortPriceLabel(item)}</div>
           <span className="flex flex-wrap justify-end gap-1">
             {item.tags.slice(0, 2).map((t) => (
               <span key={t} className="rounded-full border border-line px-2 py-0.5 text-xs text-muted">

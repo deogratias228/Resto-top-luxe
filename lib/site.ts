@@ -7,7 +7,6 @@ export const SITE = {
   phones: [
     { label: "+228 97 11 11 17", href: "tel:+22897111117" },
     { label: "+228 90 00 35 35", href: "tel:+22890003535" },
-    { label: "+228 99 00 35 35", href: "tel:+22899003535" },
   ],
   maps: {
     name: "Top Luxe la terrasse",
