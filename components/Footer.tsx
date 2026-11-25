@@ -1,8 +1,14 @@
+"use client";
 import Link from "next/link";
 import { Clock, MapPin, Phone } from "lucide-react";
 import { SITE } from "@/lib/site";
+import { useEffect, useState } from "react";
 
 export default function Footer() {
+  const [currentYear, setCurrentYear] = useState<number|null>(null);
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, [])
   return (
     <footer className="border-t border-line bg-surface">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
@@ -61,7 +67,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-line py-4 text-center text-xs text-muted">
-        {"© "}{new Date().getFullYear()}{" Top Luxe. Tous droits réservés."}
+        {"© "}{currentYear}{" Top Luxe. Tous droits réservés."}
       </div>
     </footer>
   );
