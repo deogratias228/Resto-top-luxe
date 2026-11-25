@@ -25,7 +25,7 @@ export default function Header() {
   const handleOrder = () => {
     const currentUrl = window.location.href;
 
-    const message = `Bonjour _*${SITE.name}*_ , je souhaite passer une commande.
+    const message = `Bonjour _*${SITE.name}*_, je souhaite passer une commande.
 
     _Source :_ ${currentUrl}`;
 

@@ -153,7 +153,7 @@ export async function MealContent({ params }: Props) {
           )}
 
           <div className="mt-6">
-            <ShareButtons title={`${item.name} | Top Luxe`} text={`Découvrez ${item.name} chez Top Luxe.`} />
+            <ShareButtons title={`*${item.name}* | _*Top Luxe*_`} text={`Découvrez *${item.name}* chez _*Top Luxe*_.`} />
           </div>
         </div>
       </div>

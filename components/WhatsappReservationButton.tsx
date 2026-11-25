@@ -7,9 +7,9 @@ export default function WhatsappReservationButton() {
   const handleReservation = () => {
     const currentUrl = window.location.href;
 
-    const message = `Bonjour _*${SITE.name}*_ , je souhaite faire une réservation.
+    const message = `Bonjour _*${SITE.name}*_, je souhaite faire une réservation.
 
-    _Source :_ ${currentUrl}`;
+_Source :_ ${currentUrl}`;
 
     window.open(
       whatsappLink(message),

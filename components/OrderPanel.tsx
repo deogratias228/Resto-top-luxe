@@ -26,7 +26,7 @@ export default function OrderPanel({ item }: { item: MenuItem }) {
   const line =
     `* ${qty} x *${item.name}*` + (variant ? ` *(${variant.label})*` : "") + (option ? ` - *${option}*` : "");
   const message = [
-    `Bonjour _*${SITE.name}*_ , je souhaite commander :`,
+    `Bonjour _*${SITE.name}*_, je souhaite commander :`,
     line,
     '',
     total !== null ? `Total : _*${formatPrice(total)}*_` : "_Prix à confirmer_",

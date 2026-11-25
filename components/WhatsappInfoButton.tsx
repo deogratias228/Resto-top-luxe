@@ -7,7 +7,7 @@ export default function WhatsappInfoButton() {
   const handleInfo = () => {
     const currentUrl = window.location.href;
 
-    const message = `Bonjour _*${SITE.name}*_ , je souhaite avoir des informations.
+    const message = `Bonjour _*${SITE.name}*_, je souhaite avoir des informations.
 
 _Source :_ ${currentUrl}`;
 
