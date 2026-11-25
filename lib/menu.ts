@@ -1,3 +1,8 @@
+// Données du menu de Top Luxe (La Terrasse).
+// Les slugs sont générés une seule fois (nom slugifié + 7 caractères aléatoires) et figés ici :
+// ne pas les régénérer, pour que les URLs restent stables.
+// Les images attendues sont dans public/images/menu/<nom-slugifié>.jpg (voir le champ `image`).
+
 export type GroupId = "cuisine" | "boissons" | "autres";
 
 export type CategoryId =
@@ -230,7 +235,7 @@ export const MENU_ITEMS: MenuItem[] = [
     slug: "crevette-provencale-salade-sQcrADt",
     name: "Crevette provençale salade",
     category: "plats",
-    description: "Crevettes provençale accompagnées de salade, avec riz au légume ou frites.",
+    description: "Crevettes provençale servies avec de la salade, du riz au légume ou des frites.",
     price: 6000,
     includes: ["Riz au légume ou frites"],
     tags: ["fruits-de-mer"],
@@ -280,7 +285,7 @@ export const MENU_ITEMS: MenuItem[] = [
     slug: "samoussa-nems-Xq1Goca",
     name: "Samoussa / Nems",
     category: "plats",
-    description: "Samoussas ou nems, à choisir selon l'envie.",
+    description: "Samoussas ou nems.",
     price: 3500,
     options: ["Samoussa", "Nems"],
     tags: [],
@@ -666,7 +671,7 @@ export const MENU_ITEMS: MenuItem[] = [
     slug: "croissant-0FMmIQm",
     name: "Croissant",
     category: "petit-dejeuner",
-    description: "Croissant pour bien commencer la journée.",
+    description: "Croissant.",
     price: 800,
     tags: ["vegetarien"],
     image: "/images/menu/croissant.jpg",
@@ -1197,7 +1202,7 @@ export const MENU_ITEMS: MenuItem[] = [
     slug: "salade-de-fruits-DRLtWZc",
     name: "Salade de fruits",
     category: "glaces",
-    description: "Salade de fruits frais.",
+    description: "Salade de fruits.",
     price: 2000,
     tags: [],
     image: "/images/menu/salade-de-fruits.jpg",
@@ -1225,7 +1230,7 @@ export const MENU_ITEMS: MenuItem[] = [
     slug: "gateau-de-fete-Lc7Syic",
     name: "Gâteau de fête",
     category: "glaces",
-    description: "Gâteau pour vos fêtes et événements, de 12 000 F à 30 000 F selon la taille.",
+    description: "Gâteau de fête, de 12 000 F à 30 000 F.",
     price: 12000,
     priceMax: 30000,
     tags: [],
@@ -1343,4 +1348,10 @@ export function filterMenu(filters: MenuFilters = {}): MenuItem[] {
     }
     return true;
   });
+}
+
+/** Prix court pour les cartes et le slider : "À partir de X" quand le prix varie. */
+export function getShortPriceLabel(item: MenuItem): string {
+  const varies = item.variants?.length || item.priceMax || item.priceFrom;
+  return varies ? `À partir de ${formatPrice(item.price)}` : formatPrice(item.price);
 }

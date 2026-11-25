@@ -1,43 +1,23 @@
 import Link from "next/link";
 import { ArrowRight, Clock, MapPin, MessageCircle, Phone } from "lucide-react";
+import HeroSlider from "@/components/HeroSlider";
 import MenuCard from "@/components/MenuCard";
-import { CATEGORIES, MENU_ITEMS, getFeaturedItems } from "@/lib/menu";
+import { CATEGORIES, MENU_ITEMS, getFeaturedItems, type MenuItem } from "@/lib/menu";
 import { SITE, whatsappLink } from "@/lib/site";
+
+// Les 3 plats du slider, choisis par nom (modifier cette liste pour changer les slides).
+const HERO_NAMES = ["Poisson barracuda spécial Topluxe", "Super Spécial", "Mojito"];
 
 export default function HomePage() {
   const featured = getFeaturedItems();
+  const heroItems = HERO_NAMES.map((name) => MENU_ITEMS.find((i) => i.name === name)).filter(
+    (i): i is MenuItem => Boolean(i)
+  );
 
   return (
     <>
-      <section className="border-b border-line bg-gradient-to-b from-surface to-background">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
-          <p className="text-sm font-medium uppercase tracking-widest text-accent">{SITE.tagline}</p>
-          <h1 className="mt-4 max-w-2xl text-4xl font-bold tracking-tight sm:text-6xl">
-            Bienvenue chez Top Luxe
-          </h1>
-          <p className="mt-5 max-w-xl text-lg text-muted">
-            {`Plats, pizzas, sandwichs, cocktails et chichas, du petit-déjeuner jusqu'à l'aube. ${MENU_ITEMS.length} propositions à découvrir sur notre carte.`}
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/menu"
-              className="inline-flex items-center gap-2 rounded-lg bg-brand px-5 py-3 font-semibold text-black transition hover:bg-brand-dark"
-            >
-              Voir le menu
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-            <a
-              href={whatsappLink(`Bonjour ${SITE.name}, je souhaite passer une commande.`)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border border-line px-5 py-3 font-semibold transition hover:border-brand hover:text-accent"
-            >
-              <MessageCircle className="h-4 w-4" aria-hidden />
-              Commander sur WhatsApp
-            </a>
-          </div>
-        </div>
-      </section>
+      <h1 className="sr-only">Top Luxe, restaurant, lounge bar et terrasse à Lomé</h1>
+      <HeroSlider items={heroItems} />
 
       <section className="border-b border-line">
         <div className="mx-auto grid max-w-6xl gap-6 px-4 py-8 sm:grid-cols-3">

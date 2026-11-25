@@ -112,6 +112,11 @@ export default function OrderPanel({ item }: { item: MenuItem }) {
 
       <a
         href={whatsappLink(message)}
+        onClick={(e) => {
+          // L'adresse du site n'est connue que dans le navigateur : on ajoute le lien du plat au moment du clic.
+          const link = window.location.origin + window.location.pathname;
+          e.currentTarget.href = whatsappLink(`${message}\nLien : ${link}`);
+        }}
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand px-5 py-3 font-semibold text-black transition hover:bg-brand-dark sm:w-auto"

@@ -14,9 +14,10 @@ import {
   formatPrice,
   getCategory,
   getItemBySlug,
+  getPriceLabel,
   getRelatedItems,
 } from "@/lib/menu";
-import { Suspense } from "react";
+import { getOgImage } from "@/lib/og";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -28,18 +29,35 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const item = getItemBySlug(slug);
   if (!item) return {};
-  return { title: item.name, description: item.description };
+
+  const title = `${item.name} | Top Luxe`;
+  const description = `${getPriceLabel(item)}. ${item.description}`;
+  const image = getOgImage(item);
+  const url = `/menu/${item.slug}`;
+
+  return {
+    title: item.name,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "website",
+      siteName: "Top Luxe",
+      locale: "fr_FR",
+      url,
+      title,
+      description,
+      images: image ? [{ url: image, alt: item.name }] : undefined,
+    },
+    twitter: {
+      card: image ? "summary_large_image" : "summary",
+      title,
+      description,
+      images: image ? [image] : undefined,
+    },
+  };
 }
 
 export default async function MealPage({ params }: Props) {
-    return <Suspense fallback={<div className="mx-auto max-w-6xl px-4 py-10 text-center text-muted">Chargement...</div>}>
-      <MealContent params={params} />
-    </Suspense>
-}
-
-
-
-async function MealContent ({params}: Props) {
   const { slug } = await params;
   const item = getItemBySlug(slug);
   if (!item) notFound();
