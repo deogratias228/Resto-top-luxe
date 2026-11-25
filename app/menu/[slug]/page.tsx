@@ -18,6 +18,7 @@ import {
   getRelatedItems,
 } from "@/lib/menu";
 import { getOgImage } from "@/lib/og";
+import { Suspense } from "react";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -57,7 +58,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function MealPage({ params }: Props) {
+export default function MealPage({ params }: Props) {
+  return <Suspense fallback={<div className="mx-auto max-w-6xl px-4 py-10 text-center text-muted">Chargement...</div>}>
+    <MealContent params={params} />
+  </Suspense>;
+}
+
+
+
+export async function MealContent({ params }: Props) {
   const { slug } = await params;
   const item = getItemBySlug(slug);
   if (!item) notFound();
