@@ -4,6 +4,7 @@ import HeroSlider from "@/components/HeroSlider";
 import MenuCard from "@/components/MenuCard";
 import { CATEGORIES, MENU_ITEMS, getFeaturedItems, type MenuItem } from "@/lib/menu";
 import { SITE, whatsappLink } from "@/lib/site";
+import WhatsappReservationButton from "@/components/WhatsappReservationButton";
 
 // Les 3 plats du slider, choisis par nom (modifier cette liste pour changer les slides).
 const HERO_NAMES = ["Poisson barracuda spécial Topluxe", "Super Spécial", "Mojito"];
@@ -14,6 +15,7 @@ export default function HomePage() {
     (i): i is MenuItem => Boolean(i)
   );
 
+  
   return (
     <>
       <h1 className="sr-only">Top Luxe, restaurant, lounge bar et terrasse à Lomé</h1>
@@ -90,15 +92,15 @@ export default function HomePage() {
           <p className="mt-3 max-w-xl text-muted">
             Anniversaire, soirée privée ou repas d&apos;équipe : écrivez-nous pour réserver la terrasse et préparer votre événement.
           </p>
-          <a
-            href={whatsappLink(`Bonjour ${SITE.name}, je souhaite réserver pour un événement.`)}
-            target="_blank"
-            rel="noopener noreferrer"
+          {/* <button
+            type="button"
+            onClick={handleOrder}
             className="mt-6 inline-flex items-center gap-2 rounded-lg bg-brand px-5 py-3 font-semibold text-black transition hover:bg-brand-dark"
           >
             <MessageCircle className="h-4 w-4" aria-hidden />
             Réserver sur WhatsApp
-          </a>
+          </button> */}
+          <WhatsappReservationButton />
         </div>
       </section>
     </>

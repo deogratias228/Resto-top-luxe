@@ -13,13 +13,28 @@ const LINKS = [
   { href: "/contact", label: "Contact" },
 ];
 
-const ORDER_LINK = whatsappLink(`Bonjour ${SITE.name}, je souhaite passer une commande.`);
+
 
 export default function Header() {
+
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+
+  const handleOrder = () => {
+    const currentUrl = window.location.href;
+
+    const message = `Bonjour _*${SITE.name}*_ , je souhaite passer une commande.
+
+    _Source :_ ${currentUrl}`;
+
+    window.open(
+      whatsappLink(message),
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-background/90 backdrop-blur">
@@ -34,23 +49,22 @@ export default function Header() {
             <Link
               key={l.href}
               href={l.href}
-              className={`text-sm font-medium transition hover:text-accent ${
-                isActive(l.href) ? "text-accent" : "text-foreground"
-              }`}
+              className={`text-sm font-medium transition hover:text-accent ${isActive(l.href) ? "text-accent" : "text-foreground"
+                }`}
             >
               {l.label}
             </Link>
           ))}
           <ThemeToggle />
-          <a
-            href={ORDER_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
+          {/*  */}
+          <button
+            type="button"
+            onClick={handleOrder}
             className="inline-flex items-center gap-2 rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-black transition hover:bg-brand-dark"
           >
             <MessageCircle className="h-4 w-4" aria-hidden />
             Commander
-          </a>
+          </button>
         </nav>
 
         <div className="flex items-center gap-1 md:hidden">
@@ -80,15 +94,14 @@ export default function Header() {
                 {l.label}
               </Link>
             ))}
-            <a
-              href={ORDER_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
+              onClick={handleOrder}
               className="my-3 inline-flex items-center justify-center gap-2 rounded-lg bg-brand px-4 py-3 text-sm font-semibold text-black"
             >
               <MessageCircle className="h-4 w-4" aria-hidden />
               Commander sur WhatsApp
-            </a>
+            </button>
           </div>
         </nav>
       )}

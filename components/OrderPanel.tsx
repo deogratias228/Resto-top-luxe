@@ -24,11 +24,12 @@ export default function OrderPanel({ item }: { item: MenuItem }) {
   const total = unit === null ? null : unit * qty;
 
   const line =
-    `${qty} x ${item.name}` + (variant ? ` (${variant.label})` : "") + (option ? ` - ${option}` : "");
+    `* ${qty} x *${item.name}*` + (variant ? ` *(${variant.label})*` : "") + (option ? ` - *${option}*` : "");
   const message = [
-    `Bonjour ${SITE.name}, je souhaite commander :`,
+    `Bonjour _*${SITE.name}*_ , je souhaite commander :`,
     line,
-    total !== null ? `Total : ${formatPrice(total)}` : "Prix à confirmer",
+    '',
+    total !== null ? `Total : _*${formatPrice(total)}*_` : "_Prix à confirmer_",
   ].join("\n");
 
   return (

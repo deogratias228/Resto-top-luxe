@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Clock, ExternalLink, Globe, MapPin, MessageCircle, Navigation, Phone } from "lucide-react";
-import { SITE, whatsappLink } from "@/lib/site";
+import { SITE } from "@/lib/site";
+import WhatsappInfoButton from "@/components/WhatsappInfoButton";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -12,6 +13,7 @@ const DIRECTIONS = `https://www.google.com/maps/dir/?api=1&destination=${SITE.ma
 const card = "rounded-2xl border border-line bg-surface p-5";
 
 export default function ContactPage() {
+  
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
       <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Contact</h1>
@@ -47,15 +49,7 @@ export default function ContactPage() {
                 </ul>
               </div>
             </div>
-            <a
-              href={whatsappLink(`Bonjour ${SITE.name}, j'aimerais avoir des informations.`)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-brand px-5 py-3 text-sm font-semibold text-black transition hover:bg-brand-dark"
-            >
-              <MessageCircle className="h-4 w-4" aria-hidden />
-              Écrire sur WhatsApp
-            </a>
+            <WhatsappInfoButton />
           </div>
 
           <div className={card}>
@@ -108,11 +102,11 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <div className="min-h-[360px] overflow-hidden rounded-2xl border border-line bg-surface lg:min-h-full">
+        <div className="min-h-90 overflow-hidden rounded-2xl border border-line bg-surface lg:min-h-full">
           <iframe
             src={SITE.maps.embed}
             title="Plan d'accès Top Luxe"
-            className="h-full min-h-[360px] w-full"
+            className="h-full min-h-90 w-full"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen
